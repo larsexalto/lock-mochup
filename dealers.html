@@ -10,6 +10,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN/WPcM=" crossorigin=""></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -49,94 +51,207 @@
     ]
   }
   </script>
+  <style>
+    #dealer-map { height: 500px; width: 100%; }
+    .leaflet-popup-content-wrapper { border-radius: 10px; box-shadow: 0 8px 32px rgba(0,0,0,.15); font-family: 'Inter', sans-serif; }
+    .leaflet-popup-content { font-size: 13px; line-height: 1.7; margin: 14px 16px; }
+    .leaflet-popup-content strong { font-size: 14px; font-weight: 800; display: block; margin-bottom: 4px; }
+    .leaflet-popup-content a { color: #5BBF21; font-weight: 600; text-decoration: none; }
+    .map-dealer-pin { width: 22px; height: 22px; background: #5BBF21; border: 3px solid #fff; border-radius: 50%; box-shadow: 0 2px 10px rgba(0,0,0,.25); }
+  </style>
 </head>
 <body>
-<nav class="mobile-nav" id="mobileNav"><a href="index.html">Home</a><a href="producten/index.html">Producten</a><a href="keurmerken.html">Keurmerken</a><a href="nieuws/index.html">Nieuws</a><a href="downloads.html">Downloads</a><a href="dealers.html">Dealers</a><a href="contact.html">Contact</a></nav>
-<div class="topbar"><div class="topbar-inner"><div class="topbar-contact"><a href="tel:+31184615800">📞 0184 615 800</a><a href="https://wa.me/31620619186" target="_blank" rel="noopener">💬 WhatsApp</a><a href="mailto:info@lockk.eu">✉ info@lockk.eu</a></div><div class="lang-switcher"><a href="index.html" class="active" hreflang="nl">NL</a><a href="#" hreflang="de">DE</a><a href="#" hreflang="en">EN</a></div></div></div>
+<nav class="mobile-nav" id="mobileNav"><a href="index.html">Home</a><a href="producten/index.html">Producten</a><a href="keurmerken.html">Keurmerken</a><a href="nieuws/index.html">Nieuws</a><a href="downloads.html">Downloads</a><a href="dealers.html" class="active">Dealers</a><a href="contact.html">Contact</a></nav>
+<div class="topbar"><div class="topbar-inner"><div class="topbar-contact"><a href="tel:+31184615800">0184 615 800</a><a href="https://wa.me/31620619186" target="_blank" rel="noopener">WhatsApp</a><a href="mailto:info@lockk.eu">info@lockk.eu</a></div><div class="lang-switcher"><a href="index.html" class="active" hreflang="nl">NL</a><a href="#" hreflang="de">DE</a><a href="#" hreflang="en">EN</a></div></div></div>
 <header><div class="header-inner"><a href="index.html" class="logo"><img src="images/lockk-logo-rgb-diap.svg" alt="Lockk" width="120" height="40"></a><nav aria-label="Hoofdmenu"><ul><li><a href="index.html">Home</a></li><li><a href="producten/index.html">Producten</a></li><li><a href="keurmerken.html">Keurmerken</a></li><li><a href="nieuws/index.html">Nieuws</a></li><li><a href="downloads.html">Downloads</a></li><li><a href="dealers.html" class="active" aria-current="page">Dealers</a></li><li><a href="contact.html">Contact</a></li></ul></nav><button class="hamburger" id="hamburger" aria-label="Menu openen" aria-expanded="false" aria-controls="mobileNav"><span></span><span></span><span></span></button></div></header>
 
-<div class="dealer-cta" style="min-height:280px;">
-  <img src="images/dealers.1920x0x0x100.jpg" alt="Lockk dealernetwerk" class="dealer-cta-bg" loading="lazy">
-  <div class="dealer-cta-content" style="padding:48px 24px;">
-    <div style="font-size:12px;letter-spacing:2px;text-transform:uppercase;opacity:.6;margin-bottom:10px;">Home › Dealers</div>
-    <h1 style="font-size:36px;margin-bottom:10px;">Ons dealernetwerk</h1>
-    <p>Vind een Lockk dealer bij u in de buurt. Voer uw postcode in om snel te zoeken.</p>
-    <form class="postcode-search" id="postcodeForm" onsubmit="return searchDealer(event)" style="margin-top:24px;">
-      <input type="text" id="postcodeInput" placeholder="bijv. 3000 AA" maxlength="7" aria-label="Uw postcode">
-      <button type="submit">Zoeken</button>
-    </form>
-    <div class="dealer-result" id="dealerResult"></div>
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="breadcrumb"><a href="index.html">Home</a> › Dealers</div>
+    <h1>Ons dealernetwerk</h1>
+    <p>Lockk producten zijn verkrijgbaar bij gespecialiseerde watersportdealers in Nederland en Duitsland.</p>
   </div>
 </div>
 
-<section>
+<!-- MAP + SEARCH -->
+<div style="background:#fff;border-bottom:1px solid var(--mid);">
+  <div style="max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:320px 1fr;min-height:500px;">
+
+    <!-- Sidebar -->
+    <div style="padding:32px 28px;border-right:1px solid var(--mid);display:flex;flex-direction:column;gap:20px;">
+      <div>
+        <div class="section-label" style="margin-bottom:8px;">Zoeken</div>
+        <form id="postcodeForm" onsubmit="return searchDealer(event)" style="display:flex;flex-direction:column;gap:10px;">
+          <input type="text" id="postcodeInput" placeholder="Postcode of plaatsnaam" maxlength="10" aria-label="Uw postcode"
+            style="padding:12px 16px;border:1.5px solid var(--mid);border-radius:10px;font-size:14px;font-family:var(--f);transition:border-color .15s;">
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Zoek dealer</button>
+        </form>
+        <div id="dealerResult" style="font-size:13px;color:var(--text);margin-top:12px;line-height:1.7;min-height:16px;"></div>
+      </div>
+
+      <div style="border-top:1px solid var(--mid);padding-top:20px;">
+        <div class="section-label" style="margin-bottom:14px;">Alle vestigingen</div>
+
+        <div class="dealer-sidebar-item" id="pin-nl1" onclick="focusDealer(0)" style="padding:14px;border-radius:10px;cursor:pointer;transition:background .15s;margin-bottom:8px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+            <div style="width:10px;height:10px;background:#5BBF21;border-radius:50%;flex-shrink:0;"></div>
+            <strong style="font-size:14px;font-weight:700;">Exalto Hardinxveld</strong>
+          </div>
+          <p style="font-size:12px;color:var(--text);margin:0 0 0 20px;line-height:1.6;">Hakgriend 6, 3371 KA<br>
+            <a href="tel:+31184615800" style="color:var(--g);font-weight:600;">0184 615 800</a></p>
+        </div>
+
+        <div class="dealer-sidebar-item" id="pin-nl2" onclick="focusDealer(1)" style="padding:14px;border-radius:10px;cursor:pointer;transition:background .15s;margin-bottom:8px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+            <div style="width:10px;height:10px;background:#5BBF21;border-radius:50%;flex-shrink:0;"></div>
+            <strong style="font-size:14px;font-weight:700;">Exalto Grou</strong>
+          </div>
+          <p style="font-size:12px;color:var(--text);margin:0 0 0 20px;line-height:1.6;">Biensma 41, 9001 XZ<br>
+            <a href="tel:+31566621133" style="color:var(--g);font-weight:600;">0566 621 133</a></p>
+        </div>
+
+        <div class="dealer-sidebar-item" id="pin-de1" onclick="focusDealer(2)" style="padding:14px;border-radius:10px;cursor:pointer;transition:background .15s;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+            <div style="width:10px;height:10px;background:#5BBF21;border-radius:50%;flex-shrink:0;"></div>
+            <strong style="font-size:14px;font-weight:700;">Exalto Bremen</strong>
+          </div>
+          <p style="font-size:12px;color:var(--text);margin:0 0 0 20px;line-height:1.6;">Hermann-Ritter-Str. 112, 28197<br>
+            <a href="tel:+4942198970310" style="color:var(--g);font-weight:600;">+49 421 989 703 10</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Map -->
+    <div id="dealer-map"></div>
+  </div>
+</div>
+
+<!-- DEALER CARDS -->
+<section id="dealers-nl">
   <div class="section-inner">
     <div class="section-label">Nederland</div>
     <h2 class="section-title">Nederlandse dealers</h2>
     <div class="dealers-grid">
       <div class="dealer-card">
         <h3>Exalto Hardinxveld</h3>
-        <p>Hakgriend 6<br>3371 KA Hardinxveld-Giessendam<br><br>
-        <a href="tel:+31184615800">📞 0184 615 800</a><br>
-        <a href="mailto:info@lockk.eu">✉ info@lockk.eu</a><br>
-        <a href="https://wa.me/31620619186" target="_blank" rel="noopener">💬 WhatsApp: 06 20 619 186</a></p>
+        <p>
+          Hakgriend 6<br>
+          3371 KA Hardinxveld-Giessendam<br><br>
+          <a href="tel:+31184615800">0184 615 800</a><br>
+          <a href="mailto:info@lockk.eu">info@lockk.eu</a><br>
+          <a href="https://wa.me/31620619186" target="_blank" rel="noopener">WhatsApp: 06 20 619 186</a>
+        </p>
       </div>
       <div class="dealer-card">
         <h3>Exalto Grou</h3>
-        <p>Biensma 41<br>9001 XZ Grou<br><br>
-        <a href="tel:+31566621133">📞 0566 621 133</a><br>
-        <a href="mailto:info@lockk.eu">✉ info@lockk.eu</a><br>
-        <a href="https://wa.me/31610060741" target="_blank" rel="noopener">💬 WhatsApp: 06 10 060 741</a></p>
+        <p>
+          Biensma 41<br>
+          9001 XZ Grou<br><br>
+          <a href="tel:+31566621133">0566 621 133</a><br>
+          <a href="mailto:info@lockk.eu">info@lockk.eu</a><br>
+          <a href="https://wa.me/31610060741" target="_blank" rel="noopener">WhatsApp: 06 10 060 741</a>
+        </p>
       </div>
       <div class="dealer-card" style="border-style:dashed;display:flex;align-items:center;justify-content:center;text-align:center;min-height:160px;">
-        <div><div style="font-size:32px;color:var(--green);margin-bottom:8px;">+</div><p>Dealer worden?<br><a href="contact.html">Neem contact op</a></p></div>
+        <div>
+          <div style="font-size:28px;font-weight:900;color:var(--g);margin-bottom:8px;">+</div>
+          <p style="font-size:14px;margin-bottom:12px;">Dealer worden?</p>
+          <a href="contact.html" class="btn btn-primary" style="font-size:13px;">Neem contact op</a>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<section style="background:var(--gray);">
+<section style="background:var(--gray);" id="dealers-de">
   <div class="section-inner">
     <div class="section-label">Duitsland</div>
     <h2 class="section-title">Duitse dealers</h2>
     <div class="dealers-grid">
       <div class="dealer-card">
         <h3>Exalto Bremen</h3>
-        <p>Hermann-Ritter-Straße 112<br>28197 Bremen<br><br>
-        <a href="tel:+4942198970310">📞 +49 421 989 703 10</a><br>
-        <a href="mailto:DE@EXALTO.COM">✉ DE@EXALTO.COM</a></p>
+        <p>
+          Hermann-Ritter-Straße 112<br>
+          28197 Bremen<br><br>
+          <a href="tel:+4942198970310">+49 421 989 703 10</a><br>
+          <a href="mailto:de@exalto.com">de@exalto.com</a>
+        </p>
       </div>
       <div class="dealer-card" style="border-style:dashed;display:flex;align-items:center;justify-content:center;text-align:center;min-height:160px;">
-        <div><div style="font-size:32px;color:var(--green);margin-bottom:8px;">+</div><p>Dealer worden in Duitsland?<br><a href="contact.html">Neem contact op</a></p></div>
+        <div>
+          <div style="font-size:28px;font-weight:900;color:var(--g);margin-bottom:8px;">+</div>
+          <p style="font-size:14px;margin-bottom:12px;">Dealer worden in Duitsland?</p>
+          <a href="contact.html" class="btn btn-primary" style="font-size:13px;">Neem contact op</a>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<section>
-  <div class="section-inner" style="text-align:center;max-width:560px;">
-    <div class="section-label">Interesse</div>
-    <h2 class="section-title">Dealer worden?</h2>
-    <p style="font-size:16px;color:var(--gray-text);line-height:1.75;margin-bottom:32px;">Bent u een watersportspeciaalzaak en wilt u Lockk producten in uw assortiment opnemen? Neem contact op voor de mogelijkheden.</p>
-    <a href="contact.html" class="btn btn-primary">Neem contact op</a>
-  </div>
-</section>
-
 <footer role="contentinfo"><div class="footer-inner"><div class="footer-grid"><div class="footer-brand"><img src="images/lockk-logo-rgb-diap.svg" alt="Lockk" width="120" height="34"><p>Hoogwaardige bootbeveiliging, ontwikkeld in samenwerking met de watersportsector en verzekeringsmaatschappijen.</p></div><div><h4>Producten</h4><ul><li><a href="producten/obl2.html">Motorslot OBL2</a></li><li><a href="producten/obl1.html">Motorslot OBL1</a></li><li><a href="producten/walanker.html">Walanker ART-4</a></li><li><a href="producten/kettingslot.html">Kettingslot ART-4</a></li><li><a href="producten/kabelslot.html">Kabelslot ART-1</a></li></ul></div><div><h4>Informatie</h4><ul><li><a href="keurmerken.html">Keurmerken</a></li><li><a href="nieuws/index.html">Nieuws</a></li><li><a href="downloads.html">Downloads</a></li><li><a href="dealers.html">Dealers</a></li><li><a href="contact.html">Contact</a></li></ul></div><div><h4>Contact</h4><ul><li><a href="tel:+31184615800">0184 615 800</a></li><li><a href="mailto:info@lockk.eu">info@lockk.eu</a></li><li><a href="https://wa.me/31620619186" target="_blank" rel="noopener">WhatsApp NL</a></li></ul></div></div><div class="footer-bottom"><span>© 2026 Lockk – Exalto. Alle rechten voorbehouden.</span><div class="footer-legal"><a href="privacy.html">Privacybeleid</a><a href="cookies.html">Cookieverklaring</a><a href="voorwaarden.html">Algemene voorwaarden</a><a href="https://www.metaalunie.nl" target="_blank" rel="noopener">Metaalunie lid</a></div></div></div></footer>
+
 <script>
-const h=document.getElementById('hamburger'),n=document.getElementById('mobileNav');
-h.addEventListener('click',()=>{const o=h.classList.toggle('open');n.classList.toggle('open',o);h.setAttribute('aria-expanded',o);document.body.style.overflow=o?'hidden':'';});
-n.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{h.classList.remove('open');n.classList.remove('open');document.body.style.overflow='';}));
-const dealers=[
-  {pc:['3','4'],name:'Exalto Hardinxveld',address:'Hakgriend 6, 3371 KA Hardinxveld-Giessendam',phone:'0184 615 800'},
-  {pc:['8','9'],name:'Exalto Grou',address:'Biensma 41, 9001 XZ Grou',phone:'0566 621 133'},
+const hEl=document.getElementById('hamburger'),nEl=document.getElementById('mobileNav');
+hEl.addEventListener('click',()=>{const o=hEl.classList.toggle('open');nEl.classList.toggle('open',o);hEl.setAttribute('aria-expanded',o);document.body.style.overflow=o?'hidden':'';});
+nEl.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{hEl.classList.remove('open');nEl.classList.remove('open');document.body.style.overflow='';}));
+
+// Sidebar hover
+document.querySelectorAll('.dealer-sidebar-item').forEach(el=>{
+  el.addEventListener('mouseenter',()=>el.style.background='#f5f5f5');
+  el.addEventListener('mouseleave',()=>el.style.background='');
+});
+
+// Leaflet map
+const pinIcon = L.divIcon({
+  html: '<div class="map-dealer-pin"></div>',
+  iconSize: [22,22], iconAnchor: [11,11], popupAnchor: [0,-14], className:''
+});
+
+const map = L.map('dealer-map', { zoomControl: true, scrollWheelZoom: false }).setView([52.5, 5.8], 7);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  maxZoom: 18
+}).addTo(map);
+
+const dealerData = [
+  {
+    latlng: [51.8376, 4.8413],
+    popup: '<strong>Exalto Hardinxveld</strong>Hakgriend 6<br>3371 KA Hardinxveld-Giessendam<br><a href="tel:+31184615800">0184 615 800</a>'
+  },
+  {
+    latlng: [53.1107, 5.8333],
+    popup: '<strong>Exalto Grou</strong>Biensma 41<br>9001 XZ Grou<br><a href="tel:+31566621133">0566 621 133</a>'
+  },
+  {
+    latlng: [53.0793, 8.8017],
+    popup: '<strong>Exalto Bremen</strong>Hermann-Ritter-Straße 112<br>28197 Bremen<br><a href="tel:+4942198970310">+49 421 989 703 10</a>'
+  }
 ];
-function searchDealer(e){
+
+const markers = dealerData.map(d => L.marker(d.latlng, {icon: pinIcon}).addTo(map).bindPopup(d.popup));
+
+function focusDealer(i) {
+  map.setView(dealerData[i].latlng, 13, {animate: true});
+  markers[i].openPopup();
+}
+
+// Postcode search
+const dealerSearch = [
+  {pc:['3','4'], idx:0, name:'Exalto Hardinxveld', address:'Hakgriend 6, 3371 KA Hardinxveld-Giessendam', phone:'0184 615 800'},
+  {pc:['8','9'], idx:1, name:'Exalto Grou', address:'Biensma 41, 9001 XZ Grou', phone:'0566 621 133'},
+];
+function searchDealer(e) {
   e.preventDefault();
-  const val=document.getElementById('postcodeInput').value.trim();
-  const match=dealers.find(d=>d.pc.includes(val.charAt(0)));
-  const result=document.getElementById('dealerResult');
-  result.innerHTML=match?`<strong>${match.name}</strong><br>${match.address}<br>📞 ${match.phone}`:'Geen dealer gevonden. <a href="#dealers-nl" style="color:var(--green);font-weight:600;">Bekijk alle dealers ↓</a>';
+  const val = document.getElementById('postcodeInput').value.trim();
+  const match = dealerSearch.find(d => d.pc.includes(val.charAt(0)));
+  const result = document.getElementById('dealerResult');
+  if (match) {
+    result.innerHTML = '<strong>' + match.name + '</strong><br>' + match.address + '<br>' + match.phone;
+    focusDealer(match.idx);
+  } else {
+    result.innerHTML = 'Geen dealer gevonden. Bekijk alle vestigingen hieronder.';
+  }
   return false;
 }
 </script>
