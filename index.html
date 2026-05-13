@@ -134,6 +134,7 @@
   <a href="index.html">Home</a>
   <a href="producten/index.html">Producten</a>
   <a href="keurmerken.html">Keurmerken</a>
+  <a href="nieuws/index.html">Nieuws</a>
   <a href="downloads.html">Downloads</a>
   <a href="dealers.html">Dealers</a>
   <a href="contact.html">Contact</a>
@@ -166,6 +167,7 @@
         <li><a href="index.html" class="active" aria-current="page">Home</a></li>
         <li><a href="producten/index.html">Producten</a></li>
         <li><a href="keurmerken.html">Keurmerken</a></li>
+        <li><a href="nieuws/index.html">Nieuws</a></li>
         <li><a href="downloads.html">Downloads</a></li>
         <li><a href="dealers.html">Dealers</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -180,18 +182,16 @@
 <!-- HERO -->
 <section class="hero" aria-labelledby="hero-heading">
   <img src="images/headerbeeld1-2.1920x0x0x100.jpg" alt="Lockk bootbeveiliging op het water" class="hero-bg" fetchpriority="high">
+  <div class="hero-gradient"></div>
   <div class="hero-content">
     <p class="hero-eyebrow">ART &amp; SCM gecertificeerd</p>
     <h1 id="hero-heading">
-      <span class="static">De beste beveiliging</span>
-      <span class="static">voor uw</span>
-      <span style="position:relative;display:block;height:1.15em;">
-        <span class="rotating-words" aria-label="walanker, kettingslot, OBL2">
-          <span>walanker</span>
-          <span>kettingslot</span>
-          <span>OBL2</span>
-        </span>
-      </span>
+      <span class="line">De beste beveiliging voor uw</span>
+      <div class="word-rotate" aria-label="walanker, kettingslot, OBL2">
+        <span>walanker</span>
+        <span>kettingslot</span>
+        <span>OBL2</span>
+      </div>
     </h1>
     <p class="hero-sub">Professionele bootsloten voor boten, buitenboordmotoren en accessoires. Erkend door alle grote Nederlandse verzekeraars.</p>
     <div class="hero-btns">
@@ -303,7 +303,7 @@
 <!-- INSURER STRIP -->
 <div class="insurer-strip">
   <div class="insurer-strip-inner">
-    <p>Erkend door Nederlandse verzekeringsmaatschappijen</p>
+    <p class="insurer-strip-label">Erkend door Nederlandse verzekeringsmaatschappijen</p>
     <div class="insurer-logos">
       <span class="insurer-logo">Allianz Watersport</span>
       <span class="insurer-logo">Nationale Nederlanden</span>
@@ -352,7 +352,7 @@
     <div class="section-label">Vergelijking</div>
     <h2 class="section-title" id="vergelijk-heading">Welk slot past bij mij?</h2>
     <p class="section-sub">Vergelijk onze drie meest verkochte producten op een rij.</p>
-    <div style="overflow-x:auto;">
+    <div class="comparison-wrap">
       <table class="comparison-table" aria-label="Productvergelijking">
         <thead>
           <tr>
@@ -371,9 +371,9 @@
           <tr><td>Aanbevolen voor</td><td>Grote motoren</td><td>Kleine/middelgrote motoren</td><td>Boot &amp; motor samen</td></tr>
           <tr>
             <td></td>
-            <td><a href="producten/obl2.html" class="btn btn-primary" style="font-size:13px;padding:10px 18px;">Bekijk OBL2</a></td>
-            <td><a href="producten/obl1.html" class="btn btn-primary" style="font-size:13px;padding:10px 18px;">Bekijk OBL1</a></td>
-            <td><a href="producten/kettingslot.html" class="btn btn-primary" style="font-size:13px;padding:10px 18px;">Bekijk kettingslot</a></td>
+            <td><a href="producten/obl2.html" class="tbl-btn">Bekijk OBL2</a></td>
+            <td><a href="producten/obl1.html" class="tbl-btn">Bekijk OBL1</a></td>
+            <td><a href="producten/kettingslot.html" class="tbl-btn">Bekijk kettingslot</a></td>
           </tr>
         </tbody>
       </table>
@@ -415,19 +415,19 @@
     <h2 class="section-title" id="faq-heading">Heeft u een vraag?</h2>
     <div class="faq-list" role="list">
       <div class="faq-item" role="listitem">
-        <button class="faq-q" aria-expanded="false">Welk slot heb ik nodig voor mijn buitenboordmotor? <span class="arrow" aria-hidden="true">+</span></button>
+        <button class="faq-q" aria-expanded="false">Welk slot heb ik nodig voor mijn buitenboordmotor? <span class="icon" aria-hidden="true">+</span></button>
         <div class="faq-a">Voor buitenboordmotoren adviseren wij de OBL1 (knevelmontage) of OBL2 (boutmontage). Beide zijn SCM MP03 gecertificeerd en worden erkend door Nederlandse verzekeringsmaatschappijen.</div>
       </div>
       <div class="faq-item" role="listitem">
-        <button class="faq-q" aria-expanded="false">Vereist mijn verzekeraar een bepaald keurmerk? <span class="arrow" aria-hidden="true">+</span></button>
+        <button class="faq-q" aria-expanded="false">Vereist mijn verzekeraar een bepaald keurmerk? <span class="icon" aria-hidden="true">+</span></button>
         <div class="faq-a">De meeste Nederlandse watersportverzekeraars eisen een ART of SCM keurmerk voor dekking bij diefstal. Lockk producten voldoen aan deze eisen. Controleer altijd uw polisvoorwaarden.</div>
       </div>
       <div class="faq-item" role="listitem">
-        <button class="faq-q" aria-expanded="false">Zijn de sloten bestand tegen zout water? <span class="arrow" aria-hidden="true">+</span></button>
+        <button class="faq-q" aria-expanded="false">Zijn de sloten bestand tegen zout water? <span class="icon" aria-hidden="true">+</span></button>
         <div class="faq-a">Ja. De behuizingen van de OBL1 en OBL2 zijn gemaakt van RVS 316 (marine-grade roestvrij staal), speciaal bestand tegen corrosie door zout water.</div>
       </div>
       <div class="faq-item" role="listitem">
-        <button class="faq-q" aria-expanded="false">Waar kan ik Lockk producten kopen? <span class="arrow" aria-hidden="true">+</span></button>
+        <button class="faq-q" aria-expanded="false">Waar kan ik Lockk producten kopen? <span class="icon" aria-hidden="true">+</span></button>
         <div class="faq-a">Lockk producten zijn verkrijgbaar via ons dealernetwerk in Nederland en Duitsland. Bekijk onze <a href="dealers.html" style="color:var(--green);font-weight:600;">dealerpagina</a> voor de dichtstbijzijnde verkooplocatie.</div>
       </div>
     </div>
@@ -435,23 +435,24 @@
 </section>
 
 <!-- DEALER CTA -->
-<div class="dealer-cta" role="complementary" aria-label="Dealer zoeken">
-  <img src="images/dealers.1920x0x0x100.jpg" alt="" class="dealer-cta-bg" loading="lazy" aria-hidden="true">
-  <div class="dealer-cta-content">
+<div class="dealer-hero" role="complementary" aria-label="Dealer zoeken">
+  <img src="images/dealers.1920x0x0x100.jpg" alt="" class="dealer-hero-bg" loading="lazy" aria-hidden="true">
+  <div class="dealer-hero-overlay"></div>
+  <div class="dealer-hero-content">
     <h2>Vind een dealer bij u in de buurt</h2>
     <p>Voer uw postcode in om de dichtstbijzijnde Lockk dealer te vinden.</p>
-    <form class="postcode-search" id="postcodeForm" onsubmit="return searchDealer(event)">
+    <form class="postcode-form" id="postcodeForm" onsubmit="return searchDealer(event)">
       <input type="text" id="postcodeInput" placeholder="bijv. 3000 AA" maxlength="7" aria-label="Uw postcode">
       <button type="submit">Zoeken</button>
     </form>
     <div class="dealer-result" id="dealerResult"></div>
-    <a href="dealers.html" class="btn btn-white" style="margin-top:8px;">Bekijk alle dealers</a>
+    <a href="dealers.html" class="btn btn-white" style="margin-top:16px;">Bekijk alle dealers</a>
   </div>
 </div>
 
 <!-- NEWSLETTER BAR -->
 <div class="newsletter-bar" aria-label="Nieuwsbrief aanmelding">
-  <div class="newsletter-bar-inner">
+  <div class="newsletter-inner">
     <div class="newsletter-text">
       <h3>Ontvang de Bootbeveiliging Checklist 2026</h3>
       <p>Gratis PDF: <span>welk slot bij welke verzekering?</span> Aanmelden = dubbele opt-in, GDPR conform.</p>
@@ -485,6 +486,7 @@
         <h4>Informatie</h4>
         <ul>
           <li><a href="keurmerken.html">Keurmerken</a></li>
+          <li><a href="nieuws/index.html">Nieuws</a></li>
           <li><a href="downloads.html">Downloads</a></li>
           <li><a href="dealers.html">Dealers</a></li>
           <li><a href="contact.html">Contact</a></li>
