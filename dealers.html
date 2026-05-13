@@ -5,20 +5,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dealers – Lockk Bootbeveiliging</title>
   <meta name="description" content="Vind een Lockk dealer bij u in de buurt. Gespecialiseerde watersportdealers in Nederland en Duitsland.">
+  <link rel="canonical" href="https://www.lockk.eu/nl/dealers/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Lockk Dealers",
+    "itemListElement": [
+      {
+        "@type": "ListItem", "position": 1,
+        "item": {
+          "@type": "LocalBusiness",
+          "name": "Exalto Hardinxveld",
+          "telephone": "+31184615800",
+          "email": "info@lockk.eu",
+          "address": { "@type": "PostalAddress", "streetAddress": "Hakgriend 6", "addressLocality": "Hardinxveld-Giessendam", "postalCode": "3371 KA", "addressCountry": "NL" }
+        }
+      },
+      {
+        "@type": "ListItem", "position": 2,
+        "item": {
+          "@type": "LocalBusiness",
+          "name": "Exalto Grou",
+          "telephone": "+31566621133",
+          "email": "info@lockk.eu",
+          "address": { "@type": "PostalAddress", "streetAddress": "Biensma 41", "addressLocality": "Grou", "postalCode": "9001 XZ", "addressCountry": "NL" }
+        }
+      },
+      {
+        "@type": "ListItem", "position": 3,
+        "item": {
+          "@type": "LocalBusiness",
+          "name": "Exalto Bremen",
+          "telephone": "+4942198970310",
+          "email": "DE@EXALTO.COM",
+          "address": { "@type": "PostalAddress", "streetAddress": "Hermann-Ritter-Straße 112", "addressLocality": "Bremen", "postalCode": "28197", "addressCountry": "DE" }
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
-<div class="topbar"><div class="topbar-inner"><span>📞 0184 615 800 &nbsp;|&nbsp; info@lockk.eu</span><div class="lang-switcher"><a href="index.html" class="active">NL</a><a href="#">DE</a><a href="#">EN</a></div></div></div>
-<header><div class="header-inner"><a href="index.html" class="logo"><img src="images/lockk-logo-rgb-diap.svg" alt="Lockk logo"></a><nav><ul><li><a href="index.html">Home</a></li><li><a href="producten/index.html">Producten</a></li><li><a href="keurmerken.html">Keurmerken</a></li><li><a href="downloads.html">Downloads</a></li><li><a href="dealers.html" class="active">Dealers</a></li><li><a href="contact.html">Contact</a></li></ul></nav></div></header>
+<nav class="mobile-nav" id="mobileNav"><a href="index.html">Home</a><a href="producten/index.html">Producten</a><a href="keurmerken.html">Keurmerken</a><a href="downloads.html">Downloads</a><a href="dealers.html">Dealers</a><a href="contact.html">Contact</a></nav>
+<div class="topbar"><div class="topbar-inner"><div class="topbar-contact"><a href="tel:+31184615800">📞 0184 615 800</a><a href="https://wa.me/31620619186" target="_blank" rel="noopener">💬 WhatsApp</a><a href="mailto:info@lockk.eu">✉ info@lockk.eu</a></div><div class="lang-switcher"><a href="index.html" class="active" hreflang="nl">NL</a><a href="#" hreflang="de">DE</a><a href="#" hreflang="en">EN</a></div></div></div>
+<header><div class="header-inner"><a href="index.html" class="logo"><img src="images/lockk-logo-rgb-diap.svg" alt="Lockk" width="120" height="40"></a><nav aria-label="Hoofdmenu"><ul><li><a href="index.html">Home</a></li><li><a href="producten/index.html">Producten</a></li><li><a href="keurmerken.html">Keurmerken</a></li><li><a href="downloads.html">Downloads</a></li><li><a href="dealers.html" class="active" aria-current="page">Dealers</a></li><li><a href="contact.html">Contact</a></li></ul></nav><button class="hamburger" id="hamburger" aria-label="Menu openen" aria-expanded="false" aria-controls="mobileNav"><span></span><span></span><span></span></button></div></header>
 
-<div class="dealer-cta" style="height:300px;">
-  <img src="images/dealers.1920x0x0x100.jpg" alt="Lockk dealers">
-  <div class="dealer-cta-overlay">
-    <div>
-      <div style="font-size:13px;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;opacity:.7;">Home › Dealers</div>
-      <h2 style="font-size:36px;margin-bottom:8px;">Ons dealernetwerk</h2>
-      <p style="font-size:16px;opacity:.85;">Lockk producten zijn verkrijgbaar bij gespecialiseerde watersportdealers in heel Nederland en Duitsland.</p>
-    </div>
+<div class="dealer-cta" style="min-height:280px;">
+  <img src="images/dealers.1920x0x0x100.jpg" alt="Lockk dealernetwerk" class="dealer-cta-bg" loading="lazy">
+  <div class="dealer-cta-content" style="padding:48px 24px;">
+    <div style="font-size:12px;letter-spacing:2px;text-transform:uppercase;opacity:.6;margin-bottom:10px;">Home › Dealers</div>
+    <h1 style="font-size:36px;margin-bottom:10px;">Ons dealernetwerk</h1>
+    <p>Vind een Lockk dealer bij u in de buurt. Voer uw postcode in om snel te zoeken.</p>
+    <form class="postcode-search" id="postcodeForm" onsubmit="return searchDealer(event)" style="margin-top:24px;">
+      <input type="text" id="postcodeInput" placeholder="bijv. 3000 AA" maxlength="7" aria-label="Uw postcode">
+      <button type="submit">Zoeken</button>
+    </form>
+    <div class="dealer-result" id="dealerResult"></div>
   </div>
 </div>
 
@@ -29,17 +76,20 @@
     <div class="dealers-grid">
       <div class="dealer-card">
         <h3>Exalto Hardinxveld</h3>
-        <p>Hakgriend 6<br>3371 KA Hardinxveld-Giessendam<br><br>📞 0184 615 800<br>✉ info@lockk.eu</p>
+        <p>Hakgriend 6<br>3371 KA Hardinxveld-Giessendam<br><br>
+        <a href="tel:+31184615800">📞 0184 615 800</a><br>
+        <a href="mailto:info@lockk.eu">✉ info@lockk.eu</a><br>
+        <a href="https://wa.me/31620619186" target="_blank" rel="noopener">💬 WhatsApp: 06 20 619 186</a></p>
       </div>
       <div class="dealer-card">
         <h3>Exalto Grou</h3>
-        <p>Biensma 41<br>9001 XZ Grou<br><br>📞 0566 621 133<br>✉ info@lockk.eu</p>
+        <p>Biensma 41<br>9001 XZ Grou<br><br>
+        <a href="tel:+31566621133">📞 0566 621 133</a><br>
+        <a href="mailto:info@lockk.eu">✉ info@lockk.eu</a><br>
+        <a href="https://wa.me/31610060741" target="_blank" rel="noopener">💬 WhatsApp: 06 10 060 741</a></p>
       </div>
-      <div class="dealer-card" style="border-style:dashed;display:flex;align-items:center;justify-content:center;text-align:center;min-height:140px;">
-        <div>
-          <div style="font-size:28px;margin-bottom:8px;">+</div>
-          <p style="font-size:14px;color:var(--gray-text);">Dealer worden?<br><a href="contact.html" style="color:var(--green);font-weight:600;">Neem contact op</a></p>
-        </div>
+      <div class="dealer-card" style="border-style:dashed;display:flex;align-items:center;justify-content:center;text-align:center;min-height:160px;">
+        <div><div style="font-size:32px;color:var(--green);margin-bottom:8px;">+</div><p>Dealer worden?<br><a href="contact.html">Neem contact op</a></p></div>
       </div>
     </div>
   </div>
@@ -52,27 +102,43 @@
     <div class="dealers-grid">
       <div class="dealer-card">
         <h3>Exalto Bremen</h3>
-        <p>Hermann-Ritter-Straße 112<br>28197 Bremen<br><br>📞 +49 421 989 703 10<br>✉ DE@EXALTO.COM</p>
+        <p>Hermann-Ritter-Straße 112<br>28197 Bremen<br><br>
+        <a href="tel:+4942198970310">📞 +49 421 989 703 10</a><br>
+        <a href="mailto:DE@EXALTO.COM">✉ DE@EXALTO.COM</a></p>
       </div>
-      <div class="dealer-card" style="border-style:dashed;display:flex;align-items:center;justify-content:center;text-align:center;min-height:140px;">
-        <div>
-          <div style="font-size:28px;margin-bottom:8px;">+</div>
-          <p style="font-size:14px;color:var(--gray-text);">Dealer worden in Duitsland?<br><a href="contact.html" style="color:var(--green);font-weight:600;">Neem contact op</a></p>
-        </div>
+      <div class="dealer-card" style="border-style:dashed;display:flex;align-items:center;justify-content:center;text-align:center;min-height:160px;">
+        <div><div style="font-size:32px;color:var(--green);margin-bottom:8px;">+</div><p>Dealer worden in Duitsland?<br><a href="contact.html">Neem contact op</a></p></div>
       </div>
     </div>
   </div>
 </section>
 
 <section>
-  <div class="section-inner" style="text-align:center;max-width:580px;">
+  <div class="section-inner" style="text-align:center;max-width:560px;">
     <div class="section-label">Interesse</div>
     <h2 class="section-title">Dealer worden?</h2>
-    <p style="font-size:16px;color:var(--gray-text);line-height:1.7;margin-bottom:32px;">Bent u een watersportspeciaalzaak en wilt u Lockk producten in uw assortiment opnemen? Neem dan contact met ons op voor de mogelijkheden.</p>
-    <a href="contact.html" class="btn btn-green">Neem contact op</a>
+    <p style="font-size:16px;color:var(--gray-text);line-height:1.75;margin-bottom:32px;">Bent u een watersportspeciaalzaak en wilt u Lockk producten in uw assortiment opnemen? Neem contact op voor de mogelijkheden.</p>
+    <a href="contact.html" class="btn btn-primary">Neem contact op</a>
   </div>
 </section>
 
-<footer><div class="footer-inner"><div class="footer-grid"><div class="footer-brand"><img src="images/lockk-logo-rgb-diap.svg" alt="Lockk"><p>Hoogwaardige bootbeveiliging ontwikkeld in samenwerking met de watersportsector en verzekeringsmaatschappijen.</p></div><div><h4>Producten</h4><ul><li><a href="producten/obl2.html">Motorslot OBL2</a></li><li><a href="producten/obl1.html">Motorslot OBL1</a></li><li><a href="producten/walanker.html">Walanker ART-4</a></li><li><a href="producten/kettingslot.html">Kettingslot ART-4</a></li><li><a href="producten/kabelslot.html">Kabelslot ART-1</a></li></ul></div><div><h4>Informatie</h4><ul><li><a href="keurmerken.html">Keurmerken</a></li><li><a href="downloads.html">Downloads</a></li><li><a href="dealers.html">Dealers</a></li><li><a href="contact.html">Contact</a></li></ul></div><div><h4>Contact</h4><ul><li><a href="tel:01846158800">0184 615 800</a></li><li><a href="mailto:info@lockk.eu">info@lockk.eu</a></li></ul></div></div><div class="footer-bottom"><span>© 2026 Lockk – Exalto. Alle rechten voorbehouden.</span><span>Hardinxveld-Giessendam · Grou · Bremen</span></div></div></footer>
+<footer role="contentinfo"><div class="footer-inner"><div class="footer-grid"><div class="footer-brand"><img src="images/lockk-logo-rgb-diap.svg" alt="Lockk" width="120" height="34"><p>Hoogwaardige bootbeveiliging, ontwikkeld in samenwerking met de watersportsector en verzekeringsmaatschappijen.</p></div><div><h4>Producten</h4><ul><li><a href="producten/obl2.html">Motorslot OBL2</a></li><li><a href="producten/obl1.html">Motorslot OBL1</a></li><li><a href="producten/walanker.html">Walanker ART-4</a></li><li><a href="producten/kettingslot.html">Kettingslot ART-4</a></li><li><a href="producten/kabelslot.html">Kabelslot ART-1</a></li></ul></div><div><h4>Informatie</h4><ul><li><a href="keurmerken.html">Keurmerken</a></li><li><a href="downloads.html">Downloads</a></li><li><a href="dealers.html">Dealers</a></li><li><a href="contact.html">Contact</a></li></ul></div><div><h4>Contact</h4><ul><li><a href="tel:+31184615800">0184 615 800</a></li><li><a href="mailto:info@lockk.eu">info@lockk.eu</a></li><li><a href="https://wa.me/31620619186" target="_blank" rel="noopener">WhatsApp NL</a></li></ul></div></div><div class="footer-bottom"><span>© 2026 Lockk – Exalto. Alle rechten voorbehouden.</span><div class="footer-legal"><a href="privacy.html">Privacybeleid</a><a href="cookies.html">Cookieverklaring</a><a href="voorwaarden.html">Algemene voorwaarden</a><a href="https://www.metaalunie.nl" target="_blank" rel="noopener">Metaalunie lid</a></div></div></div></footer>
+<script>
+const h=document.getElementById('hamburger'),n=document.getElementById('mobileNav');
+h.addEventListener('click',()=>{const o=h.classList.toggle('open');n.classList.toggle('open',o);h.setAttribute('aria-expanded',o);document.body.style.overflow=o?'hidden':'';});
+n.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{h.classList.remove('open');n.classList.remove('open');document.body.style.overflow='';}));
+const dealers=[
+  {pc:['3','4'],name:'Exalto Hardinxveld',address:'Hakgriend 6, 3371 KA Hardinxveld-Giessendam',phone:'0184 615 800'},
+  {pc:['8','9'],name:'Exalto Grou',address:'Biensma 41, 9001 XZ Grou',phone:'0566 621 133'},
+];
+function searchDealer(e){
+  e.preventDefault();
+  const val=document.getElementById('postcodeInput').value.trim();
+  const match=dealers.find(d=>d.pc.includes(val.charAt(0)));
+  const result=document.getElementById('dealerResult');
+  result.innerHTML=match?`<strong>${match.name}</strong><br>${match.address}<br>📞 ${match.phone}`:'Geen dealer gevonden. <a href="#dealers-nl" style="color:var(--green);font-weight:600;">Bekijk alle dealers ↓</a>';
+  return false;
+}
+</script>
 </body>
 </html>
